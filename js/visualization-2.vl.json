@@ -1,0 +1,35 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Country with U.S military bases",
+  "width": 1000,
+  "height": 500,
+  "projection": {"type": "equirectangular"},
+  "data": {
+    "url": "https://raw.githubusercontent.com/savageBanana1116/FIT3179_week9_homework/main/js/ne_110m.json",
+    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+  },
+  "transform": [
+    {
+      "lookup": "properties.NAME",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/savageBanana1116/FIT3179_week9_homework/main/data/country_with_us_military_base.csv"
+        },
+        "key": "Country",
+        "fields": ["base"]
+      }
+    }
+  ],
+  "mark": {"type": "geoshape"},
+  "encoding": {
+    "color": {
+      "title": "Has U.S military base",
+      "field": "base",
+      "type": "nominal"
+    },
+    "tooltip": [
+      {"field": "properties.NAME", "type": "nominal", "title": "Country"}
+    ]
+  },
+  "config": {}
+}
